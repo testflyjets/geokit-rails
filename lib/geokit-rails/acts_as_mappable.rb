@@ -104,8 +104,9 @@ module Geokit
 
       def within(distance, options = {})
         options[:within] = distance
+        origin = options[:origin]
         #geo_scope(options)
-        where(distance_conditions(options))
+        DistanceCollection.new(where(distance_conditions(options))).sort_by_distance_from(origin)
       end
       alias inside within
 
